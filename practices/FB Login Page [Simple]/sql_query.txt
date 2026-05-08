@@ -1,0 +1,9 @@
+CREATE DATABASE fb_login;
+
+USE fb_login;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userid VARCHAR(100),
+    password VARCHAR(100)
+);
